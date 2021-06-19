@@ -1,7 +1,6 @@
 import './style.css';
-import * as THREE from '/node_modules/three/src/Three.js';
-import { GLTFLoader } from '/node_modules/three/examples/jsm/loaders/GLTFLoader.js';
-//import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 // Setup
 
@@ -20,18 +19,15 @@ camera.position.setX(-3);
 
 renderer.render(scene, camera);
 
-const loader = new GLTFLoader();
-let laptop;
-loader.load( 'Laptop_01.gltf', function (gltf) {
-  laptop = gltf.scene.children[0];
-  
-	scene.add( gltf.scene );
-  laptop.scale.set(0.05,0.05,0.05);
-  laptop.position.z = 17;
-  laptop.position.setX(-9);
-  laptop.position.setY(-0.2);
+// Torus
 
-});
+const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+const material = new THREE.MeshStandardMaterial({ color: 0xff6347 });
+const torus = new THREE.Mesh(geometry, material);
+
+scene.add(torus);
+
+// Lights
 
 const pointLight = new THREE.PointLight(0xffffff);
 pointLight.position.set(5, 5, 5);
@@ -39,7 +35,13 @@ pointLight.position.set(5, 5, 5);
 const ambientLight = new THREE.AmbientLight(0xffffff);
 scene.add(pointLight, ambientLight);
 
+// Helpers
 
+// const lightHelper = new THREE.PointLightHelper(pointLight)
+// const gridHelper = new THREE.GridHelper(200, 50);
+// scene.add(lightHelper, gridHelper)
+
+// const controls = new OrbitControls(camera, renderer.domElement);
 
 function addStar() {
   const geometry = new THREE.SphereGeometry(0.25, 24, 24);
@@ -48,79 +50,58 @@ function addStar() {
 
   const [x, y, z] = Array(3)
     .fill()
-    .map(() => THREE.MathUtils.randFloatSpread(200));
+    .map(() => THREE.MathUtils.randFloatSpread(100));
 
   star.position.set(x, y, z);
   scene.add(star);
 }
 
-Array(650).fill().forEach(addStar);
+Array(200).fill().forEach(addStar);
 
+// Background
 
 const spaceTexture = new THREE.TextureLoader().load('space.jpg');
 scene.background = spaceTexture;
 
 // Avatar
 
-const liamTexture = new THREE.TextureLoader().load('astro.png');
+const jeffTexture = new THREE.TextureLoader().load('jeff.png');
 
-const liam = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ map: liamTexture }));
+const jeff = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ map: jeffTexture }));
 
-scene.add(liam);
+scene.add(jeff);
 
-// earth
+// Moon
 
-const earthTexture = new THREE.TextureLoader().load('earth.jpeg');
+const moonTexture = new THREE.TextureLoader().load('moon.jpg');
+const normalTexture = new THREE.TextureLoader().load('normal.jpg');
 
-
-const earth = new THREE.Mesh(
+const moon = new THREE.Mesh(
   new THREE.SphereGeometry(3, 32, 32),
   new THREE.MeshStandardMaterial({
-    map: earthTexture
-    
+    map: moonTexture,
+    normalMap: normalTexture,
   })
 );
 
-scene.add(earth);
+scene.add(moon);
 
-earth.position.z = 2;
-earth.position.setX(-10);
+moon.position.z = 30;
+moon.position.setX(-10);
 
-
-
-//baseball
-const baseballTexture = new THREE.TextureLoader().load('baseball.jpg');
-
-
-const baseball = new THREE.Mesh(
-  new THREE.SphereGeometry(3, 32, 32),
-  new THREE.MeshStandardMaterial({
-    map: baseballTexture
-    
-  })
-);
-
-scene.add(baseball);
-
-baseball.position.z = 28;
-baseball.position.setX(-10);
-
-//mercury
-
-
-liam.position.z = -5;
-liam.position.x = 2;
+jeff.position.z = -5;
+jeff.position.x = 2;
 
 // Scroll Animation
 
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top;
-  //earth.rotation.x += 0.05;
-  earth.rotation.y += 0.01;
-  //earth.rotation.z += 0.05;
+  moon.rotation.x += 0.05;
+  moon.rotation.y += 0.075;
+  moon.rotation.z += 0.05;
 
-  liam.rotation.y += 0.01;
-  //liam.rotation.z += 0.01;
+  jeff.rotation.y += 0.01;
+  jeff.rotation.z += 0.01;
 
   camera.position.z = t * -0.01;
   camera.position.x = t * -0.0002;
@@ -135,14 +116,12 @@ moveCamera();
 function animate() {
   requestAnimationFrame(animate);
 
- 
-  
-  earth.rotation.y += 0.005;
-  
-  baseball.rotation.y += 0.005;
- 
-  laptop.rotation.y += 0.005;
-  //laptop.rotation.x += 0.005;
+  torus.rotation.x += 0.01;
+  torus.rotation.y += 0.005;
+  torus.rotation.z += 0.01;
+
+  moon.rotation.x += 0.005;
+
   // controls.update();
 
   renderer.render(scene, camera);
