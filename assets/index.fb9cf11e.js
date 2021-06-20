@@ -29,6 +29,7 @@ import {
       (y.position.z = 17),
       y.position.setX(-9),
       y.position.setY(-0.2);
+      
   });
   const f = new i(16777215);
   f.position.set(5, 5, 5);
@@ -74,7 +75,7 @@ import {
       requestAnimationFrame(n),
         (A.rotation.y += 0.005),
         (X.rotation.y += 0.005),
-        //(y.rotation.y += 0.005),
+        (y.rotation.y += 0.005),
         u.render(g, m);
     })();
   
