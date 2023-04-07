@@ -1,0 +1,136 @@
+/* Style for the header */
+header {
+  background-color: #0d3c5d;
+  color: white;
+  padding: 20px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 36px;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+nav a:hover {
+  border-bottom: 2px solid white;
+}
+
+/* Style for the main content */
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #0d3c5d;
+  text-align: center;
+}
+
+ul {
+  list-style: disc;
+  margin-left: 20px;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 20px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  color: #3d3d3d;
+}
+
+/* Style for interactive elements */
+button {
+  background-color: #0d3c5d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0b2a41;
+}
+
+/* Style for the footer */
+footer {
+  background-color: #0d3c5d;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+
+footer p {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* Additional color styles */
+a {
+  color: #0d3c5d;
+}
+
+a:hover {
+  color: #0b2a41;
+}
+
+.bottom{
+  color: white;
+}
+
+button.secondary {
+  background-color: white;
+  color: #0d3c5d;
+  border: 2px solid #0d3c5d;
+}
+
+button.secondary:hover {
+  background-color: #0d3c5d;
+  color: white;
+}
+
+/* Style for the image container */
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container {
+  flex: 1;
+  margin: 20px;
+  text-align: center;
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+}
+
